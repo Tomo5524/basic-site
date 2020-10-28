@@ -13,7 +13,9 @@ const fs = require("fs");
 http
   .createServer((req, res) => {
     const q = url.parse(req.url, true);
-    // console.log(q);
+    // console.log(q); // object
+    // console.log(q.path, "path"); // returns path name
+    // console.log(q.pathname, "pathname"); // returns path name
     // handle landing page
     if (q.path === "/") {
       fs.readFile("index.html", (err, data) => {
@@ -27,6 +29,7 @@ http
       fs.readFile(filename, (err, data) => {
         // handle 404 error
         if (err) {
+          // pass in file name of html
           return fs.readFile("404.html", (err, data) => {
             if (err) throw err;
             res.writeHead(404, { "Content-Type": "text/html" });
